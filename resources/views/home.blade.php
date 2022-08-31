@@ -5,9 +5,8 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
 
-                <button onclick="startFCM()"
-                    class="btn btn-danger btn-flat">Allow notification
-                </button>
+            <button onclick="startFCM()" class="btn btn-danger btn-flat">Allow notification
+            </button>
 
             <div class="card mt-3">
                 <div class="card-body">
@@ -41,14 +40,14 @@
 
 <script>
     var firebaseConfig = {
-        apiKey: 'api-key',
-        authDomain: 'project-id.firebaseapp.com',
-        databaseURL: 'https://project-id.firebaseio.com',
-        projectId: 'project-id',
-        storageBucket: 'project-id.appspot.com',
-        messagingSenderId: 'sender-id',
-        appId: 'app-id',
-        measurementId: 'G-measurement-id',
+        apiKey: "AIzaSyBfCUcuzzE-zbzFEpSS259TmQSFQcqT1Z4",
+        authDomain: "dev-cycling.firebaseapp.com",
+        databaseURL: "https://dev-cycling-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "dev-cycling",
+        storageBucket: "dev-cycling.appspot.com",
+        messagingSenderId: "357649085368",
+        appId: "1:357649085368:web:2fdc1eeabd6b75d603154d",
+        measurementId: "G-R74P6XCYXK"
     };
 
     firebase.initializeApp(firebaseConfig);
@@ -58,6 +57,7 @@
         messaging
             .requestPermission()
             .then(function () {
+                console.log(messaging.getToken());
                 return messaging.getToken()
             })
             .then(function (response) {
@@ -85,8 +85,12 @@
                 alert(error);
             });
     }
-
     messaging.onMessage(function (payload) {
+        console.log('onMessage: ', payload);
+        if (payload.notification === undefined) {
+            console.log('Notification is undefined');
+            return;
+        }
         const title = payload.notification.title;
         const options = {
             body: payload.notification.body,
