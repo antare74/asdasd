@@ -15,7 +15,7 @@ class WebNotificationController extends Controller
 
     public function index()
     {
-        // return view("home-socket");
+        return view("home-socket");
         return view("home");
     }
 
